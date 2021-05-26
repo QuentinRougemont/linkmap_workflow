@@ -1,0 +1,1 @@
+#mapcomp.sh
