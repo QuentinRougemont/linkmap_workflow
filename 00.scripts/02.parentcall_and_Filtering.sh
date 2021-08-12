@@ -23,7 +23,7 @@ echo "input ready for running parentcall"
 # FILERTING #
 echo "filtering input file now"
 
-input=$outpout
+input=$output
 output="data_f.call"
 tol=0.001        #change according to your need
 miss=0.015       #change according to your need
