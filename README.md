@@ -7,9 +7,10 @@ Tested with F1 crosses on lampreys and apollo parnasius
 
 
 # Depandancies: 
-	* Lepmap3 software available [here](https://sourceforge.net/p/lep-map3/code/ci/master/tree/)
-	* download it and add the path to your bashrc
-    * For alignment [bwa mem]((https://sourceforge.net/projects/bio-bwa/files/) and [samtools](http://www.htslib.org) are required   
+   * Lepmap3 software available [here](https://sourceforge.net/p/lep-map3/code/ci/master/tree/)
+   * download it and add the path to your bashrc
+   * For alignment [bwa mem]((https://sourceforge.net/projects/bio-bwa/files/) and [samtools](http://www.htslib.org) are required      
+    
 
 
 # **MAJOR STEPS:** 
@@ -32,7 +33,7 @@ Tested with F1 crosses on lampreys and apollo parnasius
 
 * **_3 run parentCall and filter the data:_**
     * script to use is: `00.scripts/02.parentcall_and_Filtering.sh` 
-    * important parameters are for filtering are:
+    * important parameters for filtering are:
      * the minor allele frequency (MAF), 
      * the missing rate (missingLimit)
      * the tolerance level (tol)  
@@ -40,19 +41,22 @@ Tested with F1 crosses on lampreys and apollo parnasius
 * **_4 Separate chromosomes:_**
   * script to use is: `00.scripts/03.separate_chromose.sh`
   * important parameters are the following:
-   * *informativeMask* (either use markers informative for the male (1), female (2) or both (3)
-   * *distortionLod* use segregation distortion aware LOD scores 
-   * *sizeLimit* remove LG group with less than the indicate numbers of markers
-   * More details in the script  
+    * *informativeMask* (either use markers informative for the male (1), female (2) or both (3)
+    * *distortionLod* use segregation distortion aware LOD scores 
+    * *sizeLimit* remove LG group with less than the indicate numbers of markers
+    * More details in the script  
    
 * **5_join single markers_**
   * script to use is: `00.scripts/04.join_single.sh`
   * important parameters are :
-   * the input file
-   * A minimal LOD score
-   * A lod difference
+   	* the input file
+   	* A minimal LOD score
+   	* A lod difference
    * More details are in the script
    
  * **6_order the markers_**
  * script to use is: `00.scripts/05.order_marker.sh`
- * see details in the script. Several iterations needs to be performed.
+ 	* see details in the script. Several iterations needs to be performed.
+ 	
+* **7_the map can then be visualized in R or reshaped for MapComp**
+
