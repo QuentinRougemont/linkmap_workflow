@@ -15,7 +15,8 @@ Tested with F1 crosses on lampreys and *apollo parnasius*
 
 # **MAJOR STEPS:** 
 
- * **_1 preliminary step: alignment (and eventually SNP calling)_**
+ * **_1 preliminary step: alignment (and eventually SNP calling)_**  
+ 
         * Use **bwa** to align the data (see e.g. [this for RADseq](https://github.com/QuentinRougemont/stacks_v2_workflow/blob/master/00-scripts/04.bwa_mem_align_reads_pe.sh) ).  
         
         * An example script for bwa-mem can be find in `./00_scripts/00_bwa_mem.sh`   
