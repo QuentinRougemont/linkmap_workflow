@@ -3,7 +3,7 @@
 # purpose:
 
 constructing linkage map based on LepMap3 
-Tested with F1 crosses on lampreys and apollo parnasius 
+Tested with F1 crosses on lampreys and *apollo parnasius*  
 
 
 # Depandancies: 
@@ -30,7 +30,7 @@ Tested with F1 crosses on lampreys and apollo parnasius
  gzip >post.gz  
         
  #Alternatively use the script:
-  00.scripts/06_posterior/01.mpileup_to_posterior.sh
+ ./00.scripts/06_posterior/01.mpileup_to_posterior.sh
  ```
 
 * **_3 run parentCall and filter_**
@@ -94,10 +94,10 @@ To fill
 number_of_LG=30
 for i in $(seq $number_of_LG ) ;
 do
-  awk -vfullData=1 -f map2genotypes.awk order.LG$i.txt >map.data.LG$i.12.txt
+  awk -vfullData=1 -f 00_scripts/awk_scripts/map2genotypes.awk order.LG$i.txt >map.data.LG$i.12.txt
  done
 ```
  
-   * Reshape for R   
+  * Reshape the genotype matrix for R/qtl   
   
  To fill
