@@ -82,8 +82,20 @@ Tested with F1 crosses on lampreys and apollo parnasius
  	* see other details in the script. 
  	
   
-* **_7 the map can then be visualized in R or reshaped for MapComp_**
+* **_7 the map can then be visualized in R or reshaped for MapComp_**  
+
 To fill  
 
-* **_8 reshaping for r/QTL_**
-To fill  
+* **_8 reshaping for r/QTL_**  
+
+  * 1. Convert to genotypes:
+  
+```bash
+number_of_LG=30
+for i in $(seq $number_of_LG ) ;
+do
+  awk -vfullData=1 -f map2genotypes.awk order.LG$i.txt >map.data.LG$i.12.txt
+ done
+```
+ 
+   * 2. Reshape for R 
