@@ -3,7 +3,7 @@
 # Global variables
 GENOMEFOLDER="03_genome"
 GENOME="GCA_907164705.1_Parnassius_apollo_genomic.fna"
-DATAFOLDER="04_data"
+DATAFOLDER="04_data" #file containing trimmed reads
 OUTFOLDER="05_aligned"
 if [ ! -d ${OUTFOLDER} ]
 then
