@@ -75,11 +75,11 @@ Tested with F1 crosses on lampreys and apollo parnasius
    
  * **_6 order the markers_**
  * script to use is: `00_scripts/06.order_marker.sh`
- * this will order markers in each LG separately and then evaluate the order through 5 repetition (this can be incrased).  
- * two input parameterss are required :
-  * the filtered posterior data file  
-  * the map from the previous steps (join_single.sh) 
- 	* see other details in the script. 
+  * this will order markers in each LG separately and then evaluate the order through 5 repetition (this can be incrased).  
+  * two input parameterss are required :
+    * the filtered posterior data file  
+    * the map from the previous steps (join_single.sh) 
+ 	  * see other details in the script. 
  	
   
 * **_7 the map can then be visualized in R or reshaped for MapComp_**  
@@ -88,7 +88,7 @@ To fill
 
 * **_8 reshaping for r/QTL_**  
 
-  * 1. Convert to genotypes:
+  * Convert to genotypes:
   
 ```bash
 number_of_LG=30
@@ -98,4 +98,6 @@ do
  done
 ```
  
-   * 2. Reshape for R 
+   * Reshape for R   
+  
+ To fill
