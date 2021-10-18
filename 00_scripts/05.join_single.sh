@@ -2,7 +2,7 @@
 #join single SNPs into already defined groups
 if [ $# -lt 4 ] ; then
     echo ""
-    echo "usage: ./09.join_single.sh data map LodLimit LodDifference"
+    echo "usage: ./05.join_single.sh data map LodLimit LodDifference"
     echo "#join single markers into different chromosomes"
     echo "1 - data should be the filtered genotype likelihood obtained from 07.filter.sh"
     echo "2 - map  is the map obtained at previous step after splitting group"

@@ -1,8 +1,19 @@
 #!/bin/bash
-#then use csplit to split the chromosome:
+#purpose: order the markers in each linkage groups
+if [ $# -lt 2 ] ; then
+    echo ""
+    echo "usage: ./06.order_markers.sh data map"
+    echo "#order the markers in each linkage groups"
+    echo "required arguments: "
+    echo "1 - data should be the filtered genotype likelihood obtained from 07.filter.sh"
+    echo "2 - map  is the map obtained at the previous step after splitting group and adding singles"
+    echo ""
+    exit 0
+fi
 
-data=$1 #example: 07_lepmap/data_f.call_miss0.20_tol0.0001_MAF0.05.gz #$1
-map=$2  #example: 09_join_single/map_miss0.20_tol0.0001_single.iterated_lodLimit4LodDiff2.txt #$2
+
+data=${1} #example: 07_lepmap/data_f.call_miss0.20_tol0.0001_MAF0.05.gz #$1
+map=${2}  #example: 09_join_single/map_miss0.20_tol0.0001_single.iterated_lodLimit4LodDiff2.txt #$2
 
 awk '{print $1}' $map |sort |uniq -c |sort -k 2 -n |sed 1,2d |awk '{print $2}'  >> chromolist
 

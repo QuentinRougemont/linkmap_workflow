@@ -3,7 +3,7 @@
 #convert posterior into lepmap input
 if [ $# -lt 2 ] ; then
     echo ""
-    echo "usage: ./03_Filtering.sh  input.gz pedigree.t.txt"
+    echo "usage: ./03.filtering.sh  input.gz pedigree.t.txt"
     echo "run parent call and then filter data based on various parameters"
     echo ""
     exit 0
