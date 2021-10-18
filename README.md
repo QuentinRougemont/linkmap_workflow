@@ -9,7 +9,7 @@ Tested with F1 crosses on lampreys and apollo parnasius
 # Depandancies: 
    * Lepmap3 software available [here](https://sourceforge.net/p/lep-map3/code/ci/master/tree/)
    * download it and add the path to your bashrc
-   * For alignment [bwa mem]((https://sourceforge.net/projects/bio-bwa/files/) and [samtools](http://www.htslib.org) are required      
+   * For alignment [bwa mem](https://sourceforge.net/projects/bio-bwa/files/) and [samtools](http://www.htslib.org) are required      
     
 
 
