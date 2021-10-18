@@ -24,14 +24,14 @@ Tested with F1 crosses on lampreys and apollo parnasius
  * **_2 convert bam to posterior_**
         * simply use the scripts provided with LepMap: pileup2likelihood:
  
-        ```bash
-        samtools mpileup -q 20 -Q 20 -s $(cat list_sorted_bam.txt)|\
-        java -cp bin/ Pileup2Likelihoods|\
-        gzip >post.gz  
+ ```bash
+ samtools mpileup -q 20 -Q 20 -s $(cat list_sorted_bam.txt)|\
+ java -cp bin/ Pileup2Likelihoods|\
+ gzip >post.gz  
         
-        Alternatively use the script:
-        00.scripts/06_posterior/01.mpileup_to_posterior.sh
-        ```
+ #Alternatively use the script:
+  00.scripts/06_posterior/01.mpileup_to_posterior.sh
+ ```
 
 * **_3 run parentCall and filter_**
     * script to use is: `00_scripts/02.parentcall.sh` 
@@ -56,23 +56,34 @@ Tested with F1 crosses on lampreys and apollo parnasius
 * **_4 Separate chromosomes:_**
   * script to use is: `00_scripts/04.separate_chromosome.sh`
   * important parameters are the following: 
-    * the input file (from previous step, someting like 07.lepmap/data_f.call_missXXX_tolYYY_MAFZZZ.gz)  
+    * the input file (from previous step, something like `07.lepmap/data_f.call_missXXX_tolYYY_MAFZZZ.gz`)  
     * *informativeMask* (either use markers informative for the male (1), female (2) or both (3)  
     * *distortionLod* use segregation distortion aware LOD scores  
     * *sizeLimit* remove LG group with less than the indicate numbers of markers
     * More details in the script  
    
-* **5_join single markers_**
-  * script to use is: `00.scripts/04.join_single.sh`
-  * important parameters are :
-   	* the input file
-   	* A minimal LOD score
-   	* A lod difference
-   * More details are in the script
+* **_5 join single markers_**
+  * script to use is: `00_scripts/05.join_single.sh` 
+  * this will join marker not assigned to the previously formed linkage groups.
+  * four input parameterss are required :
+   	* 1- the filtered posterior data file
+   	* 2- the map created from the previous step
+   	* 3- A minimal LOD score
+   	* 4- A lod difference
+   * Other important parameters include recombination rate in male and femal or overall
+   * I used the iterate=1 so that the script will iterate until no markers can be added to the LG.
    
- * **6_order the markers_**
- * script to use is: `00.scripts/05.order_marker.sh`
- 	* see details in the script. Several iterations needs to be performed.
+ * **_6 order the markers_**
+ * script to use is: `00_scripts/06.order_marker.sh`
+ * this will order markers in each LG separately and then evaluate the order through 5 repetition (this can be incrased).  
+ * two input parameterss are required :
+  * the filtered posterior data file  
+  * the map from the previous steps (join_single.sh) 
+ 	* see other details in the script. 
  	
-* **7_the map can then be visualized in R or reshaped for MapComp**
+  
+* **_7 the map can then be visualized in R or reshaped for MapComp_**
+To fill  
 
+* **_8 reshaping for r/QTL_**
+To fill  
