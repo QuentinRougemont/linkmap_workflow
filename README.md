@@ -135,7 +135,8 @@ do
       11.map/order_evaluated_LG$i.txt >13.genotype_map/map.data.LG$i.12.txt
 
     #then insert LG number
-    awk -v var=$i 'BEGIN{FS=OFS="\t"} $2=="0"{$2=var} 1' 13.genotype_map/map.data.LG$i.12.txt > 13.genotype_map/map.reshape.$i.txt ; done 
+    awk -v var=$i 'BEGIN{FS=OFS="\t"} $2=="0"{$2=var} 1' 13.genotype_map/map.data.LG$i.12.txt \
+      > 13.genotype_map/map.reshape.$i.txt
     rm 13.genotype_map/map.dat.LG$i.12.txt
     
     #reshape to match rqtl requirement 
