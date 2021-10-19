@@ -94,8 +94,39 @@ To fill
   * Convert to genotypes:
   
 ```bash
-number_of_LG=30
-for i in $(seq $number_of_LG ) ;
+folder=$1
+#example: folder=10.ordered_evaluated_map_miss0.20_tol0.0001_single.iterated_lodLimit4LodDiff2.txt
+
+map=$2
+awk '{print $1}' $map |sort |uniq -c |sort -k 2 -n |sed 1,2d |awk '{print $2}'  > chromolist
+
+for i in $(cat chromolist ) ; do 
+    grep "likelihood" $folder/*/order_evaluated_LG$i.txt |\
+        sed 's/:\#\*\*\* LG = 0 likelihood = /\t/g' |\
+        cut -d "/" -f 2- |\
+        sed 's/\//\t/g' >> likelihood.list;
+done
+
+sort -k2,2n -k3,3g likelihood.list |awk '!a[$2] {a[$2] = $3} $3 == a[$2]' |awk '!seen[$2,$3]++' > wanted.run.txt
+cut -f 1,2 wanted.run.txt |sed 's/\t/\//g'  > file
+
+mkdir 11.map/
+for i in $(cat file ) ; do cp $folder/$i 11.map/ ; done
+
+#recover CHR\tPOS id 
+zcat 07_lepmap/data_f.call_miss0.20_tol0.0001_MAF0.05.gz | cut -f 1,2|awk '(NR>=7)' >snps.txt
+
+mkdir 12.map_with_pos
+
+for i in $(cat chromolist ) ;
+do  
+    awk -vFS="\t" -vOFS="\t" '(NR==FNR){s[NR-1]=$0}(NR!=FNR){if ($1 in s) $1=s[$1];print}' \
+      snps.txt 11.map/order_evaluated_LG$i.txt >   12.map_with_pos/order.map.LG$i.txt ; 
+    grep -v "#" 12.map_with_pos/order.map.LG$i.txt |sed "s/^/$i\t/g" >> 12.map_with_pos/map.all.LG.txt ; 
+done
+
+
+for i in $(cat chromolist ) ;
 do
   awk -vfullData=1 -f 00_scripts/awk_scripts/map2genotypes.awk order.LG$i.txt >map.data.LG$i.12.txt
  done
