@@ -108,7 +108,7 @@ for i in $(cat chromolist ) ; do
 done
 
 sort -k2,2n -k3,3g likelihood.list |awk '!a[$2] {a[$2] = $3} $3 == a[$2]' |awk '!seen[$2,$3]++' > wanted.run.txt
-cut -f 1,2 wanted.run.txt |sed 's/\t/\//g'  > file
+awk '{print $1"/"$2}' wanted.run.txt > file
 
 mkdir 11.map/
 for i in $(cat file ) ; do cp $folder/$i 11.map/ ; done
