@@ -126,7 +126,7 @@ do
     awk -vFS="\t" -vOFS="\t" '(NR==FNR){s[NR-1]=$0}(NR!=FNR){if ($1 in s) $1=s[$1];print}' \
       snps.txt 11.map/order_evaluated_LG$i.txt >   12.map_with_pos/order.map.LG$i.txt ; 
     
-    #insert LG to explore data
+    #insert LG to explore data #optional step 
     grep -v "#" 12.map_with_pos/order.map.LG$i.txt |\
       sed "s/^/$i\t/g" >> 12.map_with_pos/map.all.LG.txt ; 
     
@@ -147,13 +147,19 @@ do
  done
  
  00_scripts/awk_scripts/transpose_tab data.tmp > data.tmp2
- paste indiviuals.id phenotype data.tmp2 |sed 's/\t/,/g' > data.csv
+ paste individuals.id phenotype data.tmp2 |sed 's/\t/,/g' > data.csv
+ #requirement:
+ #individuals.id = 1 colomn file with id of each individuals
+ #phenotype = phenotypic data. one line per individual and as many columns as phenotype.
  
+ echo "data ready for R/qtl analysis and plot"
  
- 
+ #optionally remove unnecessary intermediate file
+ #rm 13.genotype_map
+ #rm data.tmp
  
 ```
  
-  * Reshape the genotype matrix for R/qtl   
+  * perform R/qtl analysis
   
  To fill
