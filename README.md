@@ -137,14 +137,14 @@ do
     #then insert LG number
     awk -v var=$i 'BEGIN{FS=OFS="\t"} $2=="0"{$2=var} 1' 13.genotype_map/map.data.LG$i.12.txt \
       > 13.genotype_map/map.reshape.$i.txt
-    rm 13.genotype_map/map.dat.LG$i.12.txt
+    #rm 13.genotype_map/map.data.LG$i.12.txt
     
     #reshape to match rqtl requirement 
     sed 's/1 1/A/g' 13.genotype_map/map.reshape.$i.txt |\
     sed 's/2 2/B/g' |sed 's/2 1/H/g' |sed 's/1 2/H/g' > 14.rqtl_analysis/data.LG$i.txt ; 
 
     #only print wanted column and remove female recombination as it is zero in our case
-      awk '(NR>6)' 14.rqtl_analysis/data.LG$i.txt |cut -f 1-3,5 >> data.tmp
+      awk '(NR>6)' 14.rqtl_analysis/data.LG$i.txt |cut -f 1-3,5- >> data.tmp
  done
  
  00_scripts/awk_scripts/transpose_tab data.tmp > data.tmp2
