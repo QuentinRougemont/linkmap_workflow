@@ -117,19 +117,41 @@ for i in $(cat file ) ; do cp $folder/$i 11.map/ ; done
 zcat 07_lepmap/data_f.call_miss0.20_tol0.0001_MAF0.05.gz | cut -f 1,2|awk '(NR>=7)' >snps.txt
 
 mkdir 12.map_with_pos
+mkdir 13.genotype_map
+mkdir 14.rqtl_analysis
 
 for i in $(cat chromolist ) ;
 do  
+    #insert snp id
     awk -vFS="\t" -vOFS="\t" '(NR==FNR){s[NR-1]=$0}(NR!=FNR){if ($1 in s) $1=s[$1];print}' \
       snps.txt 11.map/order_evaluated_LG$i.txt >   12.map_with_pos/order.map.LG$i.txt ; 
-    grep -v "#" 12.map_with_pos/order.map.LG$i.txt |sed "s/^/$i\t/g" >> 12.map_with_pos/map.all.LG.txt ; 
-done
+    
+    #insert LG to explore data
+    grep -v "#" 12.map_with_pos/order.map.LG$i.txt |\
+      sed "s/^/$i\t/g" >> 12.map_with_pos/map.all.LG.txt ; 
+    
+    #convert data to genotype for QTL analysis
+    awk -vfullData=1 -f 00_scripts/awk_scripts/map2genotypes.awk \
+      11.map/order_evaluated_LG$i.txt >13.genotype_map/map.data.LG$i.12.txt
 
+    #then insert LG number
+    awk -v var=$i 'BEGIN{FS=OFS="\t"} $2=="0"{$2=var} 1' 13.genotype_map/map.data.LG$i.12.txt > 13.genotype_map/map.reshape.$i.txt ; done 
+    rm 13.genotype_map/map.dat.LG$i.12.txt
+    
+    #reshape to match rqtl requirement 
+    sed 's/1 1/A/g' 13.genotype_map/map.reshape.$i.txt |\
+    sed 's/2 2/B/g' |sed 's/2 1/H/g' |sed 's/1 2/H/g' > 14.rqtl_analysis/data.LG$i.txt ; 
 
-for i in $(cat chromolist ) ;
-do
-  awk -vfullData=1 -f 00_scripts/awk_scripts/map2genotypes.awk order.LG$i.txt >map.data.LG$i.12.txt
+    #only print wanted column and remove female recombination as it is zero in our case
+      awk '(NR>6)' 14.rqtl_analysis/data.LG$i.txt |cut -f 1-3,5 >> data.tmp
  done
+ 
+ 00_scripts/awk_scripts/transpose_tab data.tmp > data.tmp2
+ paste indiviuals.id phenotype data.tmp2 |sed 's/\t/,/g' > data.csv
+ 
+ 
+ 
+ 
 ```
  
   * Reshape the genotype matrix for R/qtl   
