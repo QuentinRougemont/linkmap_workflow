@@ -100,6 +100,7 @@ folder=$1
 map=$2
 awk '{print $1}' $map |sort |uniq -c |sort -k 2 -n |sed 1,2d |awk '{print $2}'  > chromolist
 
+#first keep only the best replicate for each LG (among 5/10 replicates)
 for i in $(cat chromolist ) ; do 
     grep "likelihood" $folder/*/order_evaluated_LG$i.txt |\
         sed 's/:\#\*\*\* LG = 0 likelihood = /\t/g' |\
@@ -110,11 +111,12 @@ done
 sort -k2,2n -k3,3g likelihood.list |awk '!a[$2] {a[$2] = $3} $3 == a[$2]' |awk '!seen[$2,$3]++' > wanted.run.txt
 awk '{print $1"/"$2}' wanted.run.txt > file
 
+#copy best replicate in a new folder:
 mkdir 11.map/
 for i in $(cat file ) ; do cp $folder/$i 11.map/ ; done
 
 #recover CHR\tPOS id 
-zcat 07_lepmap/data_f.call_miss0.20_tol0.0001_MAF0.05.gz | cut -f 1,2|awk '(NR>=7)' >snps.txt
+zcat 07_lepmap/data_f.call.gz | cut -f 1,2|awk '(NR>=7)' >snps.txt
 
 mkdir 12.map_with_pos
 mkdir 13.genotype_map
@@ -133,6 +135,7 @@ do
     #convert data to genotype for QTL analysis
     awk -vfullData=1 -f 00_scripts/awk_scripts/map2genotypes.awk \
       11.map/order_evaluated_LG$i.txt >13.genotype_map/map.data.LG$i.12.txt
+    #these data can be used for the qtl analysis using script provided in lepmap3
 
     #then insert LG number
     awk -v var=$i 'BEGIN{FS=OFS="\t"} $2=="0"{$2=var} 1' 13.genotype_map/map.data.LG$i.12.txt \
@@ -149,6 +152,7 @@ do
  
  00_scripts/awk_scripts/transpose_tab data.tmp > data.tmp2
  paste individuals.id phenotype data.tmp2 |sed 's/\t/,/g' > data.csv
+ 
  #requirement:
  #individuals.id = 1 colomn file with id of each individuals
  #phenotype = phenotypic data. one line per individual and as many columns as phenotype.
