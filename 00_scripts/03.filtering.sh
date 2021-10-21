@@ -14,7 +14,7 @@ pedigree=${2}   #pedigree file (eg.pedigree.txt)
 
 # FILERTING #
 echo "filtering input file now"
-output="data_f.call"
+output="${input%.gz}"
 tol=0.0001        #change according to your need
 miss=0.20         #change according to your need
 MAF=0.05          #change according to your need
