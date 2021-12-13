@@ -14,7 +14,7 @@ pedigree=${2}   #pedigree file (eg.pedigree.txt)
 output="data.call.gz"
 
 zcat ${input}|\
-    java ParentCall2 data=${pedigree} posteriorFile=- \
+    java -cp ~/bin/ParentCall2 data=${pedigree} posteriorFile=- \
     removeNonInformative=1 |\
     gzip >07_lepmap/${output}
 

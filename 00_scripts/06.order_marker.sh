@@ -26,7 +26,7 @@ mkdir -p 10.ordered_"$base_map"/
 for LG in $(cat chromolist ) ; do
     echo "order markers for LG $LG"
     zcat $data |\
-        java -cp ~/work/softwares/lep-map3/bin/ OrderMarkers2 \
+        java -cp ~/bin/ OrderMarkers2 \
         map=$map \
         numThreads=5 \
             recombination2=0 \
@@ -44,7 +44,7 @@ for LG in $(cat chromolist ) ; do
             mkdir -p 10.ordered_evaluated_"$base_map"/"$rep"
 
             zcat $data |\
-            java -cp ~/work/softwares/lep-map3/bin/ OrderMarkers2 \
+            java -cp ~/bin/ OrderMarkers2 \
             evaluateOrder=$infile \
             numThreads=5 \
             data=- \

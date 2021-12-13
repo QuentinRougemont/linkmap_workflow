@@ -42,7 +42,7 @@ for i in $(seq 2 20)  ; do
     lod=$i
     echo separate markers for lod score: ${lod}
     zcat $input |\
-       java -cp ~/work/softwares/lep-map3/bin/ SeparateChromosomes2 data=- \
+       java -cp ~/bin/ SeparateChromosomes2 data=- \
        lodLimit="$lod" \
        informativeMask=$STR \
        $f $m $t $dLod \

@@ -41,7 +41,7 @@ it="iterate=1"                 #Iterate single joining until no markers can be a
 #run the module with different lod threshold
 echo join single2all with a lod of ${lodLim}
 zcat $data |\
-    java -cp ~/work/softwares/lep-map3/bin/ JoinSingles2All \
+    java -cp ~/bin/ JoinSingles2All \
     map=08_map_wanted/wanted_map.txt \
     data=-  \
     $llim \

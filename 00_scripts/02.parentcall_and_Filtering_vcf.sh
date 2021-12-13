@@ -16,7 +16,7 @@ output="data.call.gz"
 #zcat data.vcf.gz|java ParentCall2 data=pedigree_t.txt vcfFile=- removeNonInformative=1|gzip >data.call.gz
 
 zcat ${input}|\
-    java ParentCall2 data=${pedigree} vcfFile=- \
+    java -cp ~/bin/ ParentCall2 data=${pedigree} vcfFile=- \
     removeNonInformative=1 |\
     gzip >${output}
 
@@ -32,7 +32,7 @@ miss=0.015       #change according to your need
 MAF=0.01         #change according to your need #this parameter seems to have no impact so I don"t use it really
 
 zcat $input |\
-   java -cp bin/ Filtering2 data=- \
+   java -cp ~/bin/ Filtering2 data=- \
    removeNonInformative=1 \
    dataTolerance=$tol \
    missingLimit=${miss} \
